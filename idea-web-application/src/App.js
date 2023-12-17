@@ -325,20 +325,11 @@ function App() {
       }
 
       for (let cont = 0; cont < sensorData.length; cont++) {
-        console.log("--------------------------")
-        console.log("--------------------------")
-
 
         if (days.includes(formatDate2(sensorData[cont].id))) {
           let { id, ...dataWithoutId } = sensorData[cont];
           id = formatDate2(id)
           for (let c in dataWithoutId) {
-        console.log("_________________________")
-
-       
-        console.log("_________________________")
-
-        
 
             if (c.endsWith("Exits")) {
               newDataSensor[id]["Exits"] = newDataSensor[id]["Exits"] + dataWithoutId[c];
@@ -592,10 +583,6 @@ function App() {
 
   function LineChartSensorUdate() {
     let keys = Object.keys(dataSensor);
-    console.log(dataSensor)
-    console.log(keys)
-
-
 
     setDataSensorChart([
       ["---", "Semana passada", "Esta Semana"],
@@ -825,7 +812,7 @@ function App() {
     <div className="container">
       <div className="leftSection">
         <div className="iconsTab">
-          <LogoSvg width="25vh" height="auto"  />
+          <LogoSvg width="25vh"  />
           <AirIcon
             color={area === "air" ? CONST.purple : CONST.secondaryGray}
           />
