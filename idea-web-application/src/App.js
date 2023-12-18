@@ -378,7 +378,7 @@ function App() {
           setLoadArea(0);
         }
       }
-    }, [5000]);
+    }, [10000]);
 
     return () => clearInterval(interval);
   }, [loadPage, loadArea]);
@@ -856,7 +856,7 @@ function App() {
               <div className="graphics_left2">
                 <div className="graphics_left2_1">
                   <span className="legend">
-                    Na categoria de {category} obteve-se uma média de:
+                    Na categoria de {category} obteve-se uma média semal de:
                     <div className="pointsLegend">
                       <span
                         className="pointsText"
