@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import { Chart } from "react-google-charts";
 import { ReactComponent as LogoSvg } from './components/logo.svg';
 import { FaMedal } from "react-icons/fa";
@@ -25,7 +24,7 @@ import {
 import "./assets/fonts/K2D-Regular.ttf";
 import "./assets/fonts/K2D-Medium.ttf";
 import db from "./firebase";
-import { collection, getDocs, onSnapshot } from "firebase/firestore";
+import { collection, getDocs} from "firebase/firestore";
 
 function getLastSevenDays() {
   const dates = [];
@@ -56,12 +55,12 @@ function formatDate(date) {
   return `${day}/${month}/${year}`;
 }
 function formatDate2(data) {
-  const [dia, mes, ano] = data.split("-").map(Number);
+  const [d, m, a] = data.split("-").map(Number);
 
-  const dF = dia.toString().replace(/^0+/, "");
+  const dF = d.toString().replace(/^0+/, "");
 
-  //const mF = mes.toString().replace(/^0+/, "");
-  //const aF = ano;
+  //const mF = m.toString().replace(/^0+/, "");
+  //const aF = a;
 
   const mF = new Date().getMonth() + 1;
   const aF = new Date().getUTCFullYear();
@@ -108,8 +107,6 @@ function App() {
     water: {},
   });
 
-  const [sevenDays, setSevenDays] = useState([]);
-  const [sevenDaysBefore, setSevenDaysBefore] = useState([]);
   const [loadPage, setLoadpage] = useState(0);
   const [loadArea, setLoadArea] = useState(0);
 
@@ -402,8 +399,6 @@ function App() {
 
       sevenDaysTemp = getLastSevenDays();
       sevenDaysBeforeTemp = getSevenDaysBefore();
-      setSevenDays(sevenDaysTemp);
-      setSevenDaysBefore(sevenDaysBeforeTemp);
 
       let updatedFirstWeekPoints = firstWeekPoints;
       let updatedSecondWeekPoints = secondWeekPoints;
