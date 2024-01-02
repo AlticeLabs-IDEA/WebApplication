@@ -112,7 +112,15 @@ function App() {
 
   const [dataLine, setDataLine] = useState([]);
 
-  const [dataRing, setDataRing] = useState([]);
+  const [dataRing, setDataRing] = useState([
+    ["catgories", "points"],
+    ["air", 0,],
+    ["energy",0,],
+    ["movement",0,],
+    ["recycle",0,],
+    ["water",0,],
+    ["nan",1,],
+  ]);
   const [msg1, setMsg1] = useState("");
   const [msg2, setMsg2] = useState("");
 
@@ -281,6 +289,10 @@ function App() {
       },
       4: {
         color: area === "water" ? CONST.blue : CONST.mainGray,
+        borderColor: "000",
+      },
+      5: {
+        color: CONST.mainGray,
         borderColor: "000",
       },
     },
@@ -509,6 +521,8 @@ function App() {
         ) / Object.values(updatedSecondWeekPoints.air).length
       );
 
+      //if(updatedFirstWeekPoints === ){}
+
       setDataRing([
         ["catgories", "points"],
         [
@@ -546,7 +560,12 @@ function App() {
             0
           ) / Object.values(updatedFirstWeekPoints.water).length,
         ],
+        ["nan",0.000000000000000001,],
+
       ]);
+
+      
+    console.log("-----------------",dataRing)
 
 
         
@@ -799,8 +818,11 @@ function App() {
     }
   }, [loadArea]);
 
-  if (!categoryPoints || dataLine.length <= 0 || optionsLine.length <= 0) {
+
+
+  if ( dataLine.length <= 0 || optionsLine.length <= 0) {
     return null;
+     /*!categoryPoints ||*/
   }
 
   return (
@@ -847,7 +869,7 @@ function App() {
                       style={{ color: rankingColors[area][0] }}
                     >
 
-                      {Math.round((ringPointsPerCategory(dataRing, area)*100)/totalRingPoints(dataRing))}{"%"}
+                      {isNaN(Math.round((ringPointsPerCategory(dataRing, area)*100)/totalRingPoints(dataRing))) ? "00" : String(Math.round((ringPointsPerCategory(dataRing, area)*100)/totalRingPoints(dataRing))).padStart(2, '0')}{"%"}
                     </span>
                     {"   "} pontos totais
                   </div>
@@ -988,12 +1010,7 @@ function App() {
               ) : (
                 <FaEquals style={{ fontSize: "6vh" }} color={CONST.pureWhite} />
               )}{" "}
-              {Math.abs(
-                Math.round(
-                  ((categoryPoints - categoryPointsBefore) * 100) /
-                    categoryPointsBefore
-                )
-              )}
+              {isNaN(Math.round((ringPointsPerCategory(dataRing, area)*100)/totalRingPoints(dataRing))) ? "00" : String(Math.round((ringPointsPerCategory(dataRing, area)*100)/totalRingPoints(dataRing))).padStart(2, '0')}
               <span className="mainSymbol">
                 {" "}
                 <a style={{ fontSize: "7vh" }}>%</a>
@@ -1032,12 +1049,7 @@ function App() {
               ) : (
                 <FaEquals style={{ fontSize: "6vh" }} color={CONST.pureWhite} />
               )}{" "}
-              {Math.abs(
-                Math.round(
-                  ((categoryPoints - categoryPointsBefore) * 100) /
-                    categoryPointsBefore
-                )
-              )}
+              {isNaN(Math.round((ringPointsPerCategory(dataRing, area)*100)/totalRingPoints(dataRing))) ? "00" : String(Math.round((ringPointsPerCategory(dataRing, area)*100)/totalRingPoints(dataRing))).padStart(2, '0')}
               <span className="mainSymbol">
                 {" "}
                 <a style={{ fontSize: "7vh" }}>%</a>
@@ -1076,12 +1088,7 @@ function App() {
               ) : (
                 <FaEquals style={{ fontSize: "6vh" }} color={CONST.pureWhite} />
               )}{" "}
-              {Math.abs(
-                Math.round(
-                  ((categoryPoints - categoryPointsBefore) * 100) /
-                    categoryPointsBefore
-                )
-              )}
+              {isNaN(Math.round((ringPointsPerCategory(dataRing, area)*100)/totalRingPoints(dataRing))) ? "00" : String(Math.round((ringPointsPerCategory(dataRing, area)*100)/totalRingPoints(dataRing))).padStart(2, '0')}
               <span className="mainSymbol">
                 {" "}
                 <a style={{ fontSize: "7vh" }}>%</a>
@@ -1120,12 +1127,7 @@ function App() {
               ) : (
                 <FaEquals style={{ fontSize: "6vh" }} color={CONST.pureWhite} />
               )}
-              {Math.abs(
-                Math.round(
-                  ((categoryPoints - categoryPointsBefore) * 100) /
-                    categoryPointsBefore
-                )
-              )}
+              {isNaN(Math.round((ringPointsPerCategory(dataRing, area)*100)/totalRingPoints(dataRing))) ? "00" : String(Math.round((ringPointsPerCategory(dataRing, area)*100)/totalRingPoints(dataRing))).padStart(2, '0')}
               <span className="mainSymbol">
                 {" "}
                 <a style={{ fontSize: "7vh" }}>%</a>
@@ -1165,12 +1167,7 @@ function App() {
               ) : (
                 <FaEquals style={{ fontSize: "6vh" }} color={CONST.pureWhite} />
               )}{" "}
-              {Math.abs(
-                Math.round(
-                  ((categoryPoints - categoryPointsBefore) * 100) /
-                    categoryPointsBefore
-                )
-              )}
+              {isNaN(Math.round((ringPointsPerCategory(dataRing, area)*100)/totalRingPoints(dataRing))) ? "00" : String(Math.round((ringPointsPerCategory(dataRing, area)*100)/totalRingPoints(dataRing))).padStart(2, '0')}
               <span className="mainSymbol">
                 {" "}
                 <a style={{ fontSize: "7vh" }}>%</a>
