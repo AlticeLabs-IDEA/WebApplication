@@ -26,6 +26,14 @@ import "./assets/fonts/K2D-Medium.ttf";
 import db from "./firebase";
 import { collection, getDocs} from "firebase/firestore";
 
+function adjustMonths(dateArray) {
+  let result = [];
+  for (let c = 0; c < dateArray.length; c++) {
+    const elements = dateArray[c].split("/0");
+    result.push(elements.join("/"));
+  }
+      return result;
+}
 function getLastSevenDays() {
   const dates = [];
   const today = new Date();
@@ -34,7 +42,7 @@ function getLastSevenDays() {
     date.setDate(today.getDate() - i);
     dates.push(formatDate(date));
   }
-  return dates;
+  return adjustMonths(dates);
 }
 
 function getSevenDaysBefore() {
@@ -43,10 +51,12 @@ function getSevenDaysBefore() {
   for (let i = 13; i >= 7; i--) {
     const date = new Date(today);
     date.setDate(today.getDate() - i);
-    dates.push(formatDate(date));
+    dates.push(formatDate(date))
   }
-  return dates;
+  return adjustMonths(dates);
 }
+
+
 
 function formatDate(date) {
   const day = String(date.getDate());
@@ -64,7 +74,6 @@ function formatDate2(data) {
 
   const mF = new Date().getMonth() + 1;
   const aF = new Date().getUTCFullYear();
-
   return `${dF}/${mF}/${aF}`;
 }
 function totalRingPoints(p) {
@@ -114,13 +123,13 @@ function App() {
 
   const [dataRing, setDataRing] = useState([
     ["catgories", "points"],
-    ["air", 0,],
-    ["energy",0,],
-    ["movement",0,],
-    ["recycle",0,],
-    ["water",0,],
-    ["nan",1,],
-  ]);
+    ["air",0],
+    ["energy",0],
+    ["movement",0],
+    ["recycle",0],
+    ["water",0],
+    ["nan",0.000000000000000001,],
+  ] );
   const [msg1, setMsg1] = useState("");
   const [msg2, setMsg2] = useState("");
 
@@ -398,9 +407,12 @@ function App() {
   useEffect(() => {
     LineChartSensorUdate();
   }, [dataSensor]);
+  
 
   useEffect(() => {
+    
     const fetchData = async () => {
+
       const departmentsSnapshot = await getDocs(collection(db, "departments"));
       const departmentsData = departmentsSnapshot.docs.map((doc) => doc.data());
 
@@ -416,10 +428,13 @@ function App() {
       let updatedSecondWeekPoints = secondWeekPoints;
       let updatedScorePerCategories = scorePerCategories;
 
+      
+
       for (let i = 0; i < departmentsData.length; i++) {
         if (orgID === departmentsData[i].organization) {
           let dep = departmentsData[i];
           for (let day of sevenDaysTemp) {
+
             let points_air = checkContains(day, dep.air_points);
             updatedFirstWeekPoints.air[day] =
               (updatedFirstWeekPoints.air[day] || 0) + points_air;
@@ -452,6 +467,7 @@ function App() {
             updatedScorePerCategories.water[dep.name] =
               (updatedScorePerCategories.water[dep.name] || 0) + points_water;
           }
+          
           setScorePerCategories(updatedScorePerCategories);
           for (let day of sevenDaysBeforeTemp) {
             updatedSecondWeekPoints.air[day] =
@@ -522,7 +538,6 @@ function App() {
       );
 
       //if(updatedFirstWeekPoints === ){}
-
       setDataRing([
         ["catgories", "points"],
         [
@@ -563,11 +578,6 @@ function App() {
         ["nan",0.000000000000000001,],
 
       ]);
-
-      
-    console.log("-----------------",dataRing)
-
-
         
     };
 
@@ -816,6 +826,7 @@ function App() {
 
         break;
     }
+
   }, [loadArea]);
 
 
@@ -868,7 +879,7 @@ function App() {
                       className="pointsText"
                       style={{ color: rankingColors[area][0] }}
                     >
-
+          
                       {isNaN(Math.round((ringPointsPerCategory(dataRing, area)*100)/totalRingPoints(dataRing))) ? "00" : String(Math.round((ringPointsPerCategory(dataRing, area)*100)/totalRingPoints(dataRing))).padStart(2, '0')}{"%"}
                     </span>
                     {"   "} pontos totais
@@ -957,7 +968,6 @@ function App() {
                 <br />
                 <span>durante a semana atual e a semana anterior </span>
               </span>
-
               <Chart
                 chartType="LineChart"
                 width={"100%"}
@@ -971,6 +981,7 @@ function App() {
               <span className="legend2">
                 <span>
                   {" "}
+
                   Utilização do elevador ao longo da semana {category}
                 </span>
                 <br />
@@ -1010,16 +1021,22 @@ function App() {
               ) : (
                 <FaEquals style={{ fontSize: "6vh" }} color={CONST.pureWhite} />
               )}{" "}
+
               {isNaN(Math.round((ringPointsPerCategory(dataRing, area)*100)/totalRingPoints(dataRing))) ? "00" : String(Math.round((ringPointsPerCategory(dataRing, area)*100)/totalRingPoints(dataRing))).padStart(2, '0')}
+            
+              
               <span className="mainSymbol">
                 {" "}
                 <a style={{ fontSize: "7vh" }}>%</a>
               </span>
             </span>
           </div>
+          
           <div className="thirdSectionRight">
             <span className="subText">Climatização</span>
           </div>
+          
+
           <FaWind
             className="iconRight"
             size={"90vh"}
@@ -1027,8 +1044,10 @@ function App() {
             style={{ opacity: 0.25 }}
           />
         </div>
+        
       ) : area === "energy" ? (
         <div className="rightSection" style={{ backgroundColor: CONST.yellow }}>
+          
           <div className="firstSectionRight">
             <span className="headingText">{msg1}</span>
             <br />
@@ -1049,6 +1068,8 @@ function App() {
               ) : (
                 <FaEquals style={{ fontSize: "6vh" }} color={CONST.pureWhite} />
               )}{" "}
+                 
+
               {isNaN(Math.round((ringPointsPerCategory(dataRing, area)*100)/totalRingPoints(dataRing))) ? "00" : String(Math.round((ringPointsPerCategory(dataRing, area)*100)/totalRingPoints(dataRing))).padStart(2, '0')}
               <span className="mainSymbol">
                 {" "}
@@ -1075,6 +1096,8 @@ function App() {
           </div>
           <div className="secondSectionRight">
             <span className="mainText">
+            
+
               {Math.round(categoryPoints - categoryPointsBefore) > 0 ? (
                 <FaArrowUp
                   style={{ fontSize: "6vh" }}
@@ -1088,6 +1111,7 @@ function App() {
               ) : (
                 <FaEquals style={{ fontSize: "6vh" }} color={CONST.pureWhite} />
               )}{" "}
+
               {isNaN(Math.round((ringPointsPerCategory(dataRing, area)*100)/totalRingPoints(dataRing))) ? "00" : String(Math.round((ringPointsPerCategory(dataRing, area)*100)/totalRingPoints(dataRing))).padStart(2, '0')}
               <span className="mainSymbol">
                 {" "}
