@@ -183,7 +183,7 @@ function App() {
         lineWidth: 4,
       },
       1: {
-        labelInLegend: "Semana Anterior",
+        labelInLegend: "Esta semana",
         color: rankingColors[area][3],
         lineWidth: 4,
       },
@@ -705,14 +705,14 @@ function App() {
 
   function verificarMessage(n) {
     if (n > 0) {
-      setMsg1("Conseguimos melhorar!");
-      setMsg2("O nosso desempenho subiu em:");
+      setMsg1("Estamos no bom caminho!");
+      setMsg2("Mehorámos o nosso desempenho em:");
     } else if (n < 0) {
       setMsg1("Temos de melhorar!");
       setMsg2("Piorámos o nosso consumo em:");
     } else {
-      setMsg1("Está estável o nosso consumo.");
-      setMsg2("mantivemos o nosso cosnsumo");
+      setMsg1("Temos de melhorar. ");
+      setMsg2("mantivemos o nosso desempenho:");
     }
   }
 
@@ -862,8 +862,7 @@ function App() {
             <>
               <div className="graphics_left">
                 <span className="legend">
-                  Pontos de sustentabilidade semanalmente por categorias da
-                  organização {orgName}
+                Distribuição de contributos sustentáveis nos últimos sete dias
                 </span>
                 <Chart
                   chartType="PieChart"
@@ -882,14 +881,14 @@ function App() {
           
                       {isNaN(Math.round((ringPointsPerCategory(dataRing, area)*100)/totalRingPoints(dataRing))) ? "00" : String(Math.round((ringPointsPerCategory(dataRing, area)*100)/totalRingPoints(dataRing))).padStart(2, '0')}{"%"}
                     </span>
-                    {"   "} pontos totais
+                    {"   "} pontos
                   </div>
                 </span>
               </div>
               <div className="graphics_left2">
                 <div className="graphics_left2_1">
                   <span className="legend">
-                    Na categoria de {category} obteve-se uma média semal de:
+                    Na categoria de {category} obteve-se uma média semanal de:
                     <div className="pointsLegend">
                       <span
                         className="pointsText"
@@ -903,7 +902,7 @@ function App() {
                 </div>
                 <div className="graphics_left2_2">
                   <span className="legend">
-                    Ranking de departamento de {orgName} na categoria {category}
+                  Ranking de Departamentos na categoria {category}
                   </span>
                   <br />
                   <div
@@ -962,7 +961,7 @@ function App() {
               <span className="legend2">
                 <span>
                   {" "}
-                  Comparação de pontos de sustentabilidade na categoria de{" "}
+                  Pontos de sustentabilidade na categoria {" "}
                   {category}
                 </span>
                 <br />
@@ -1022,7 +1021,17 @@ function App() {
                 <FaEquals style={{ fontSize: "6vh" }} color={CONST.pureWhite} />
               )}{" "}
 
-              {isNaN(Math.round((ringPointsPerCategory(dataRing, area)*100)/totalRingPoints(dataRing))) ? "00" : String(Math.round((ringPointsPerCategory(dataRing, area)*100)/totalRingPoints(dataRing))).padStart(2, '0')}
+              {isNaN(Math.round(Math.abs(
+                Math.round(
+                  ((categoryPoints - categoryPointsBefore) * 100) /
+                    categoryPointsBefore
+                )
+              ))) ? "00" : String(Math.round(Math.abs(
+                Math.round(
+                  ((categoryPoints - categoryPointsBefore) * 100) /
+                    categoryPointsBefore
+                )
+              ))).padStart(2, '0')}
             
               
               <span className="mainSymbol">
@@ -1033,7 +1042,7 @@ function App() {
           </div>
           
           <div className="thirdSectionRight">
-            <span className="subText">Climatização</span>
+            <span className="subText">CLIMATIZAÇÃO</span>
           </div>
           
 
@@ -1070,7 +1079,17 @@ function App() {
               )}{" "}
                  
 
-              {isNaN(Math.round((ringPointsPerCategory(dataRing, area)*100)/totalRingPoints(dataRing))) ? "00" : String(Math.round((ringPointsPerCategory(dataRing, area)*100)/totalRingPoints(dataRing))).padStart(2, '0')}
+              {isNaN(Math.round(Math.abs(
+                Math.round(
+                  ((categoryPoints - categoryPointsBefore) * 100) /
+                    categoryPointsBefore
+                )
+              ))) ? "00" : String(Math.round(Math.abs(
+                Math.round(
+                  ((categoryPoints - categoryPointsBefore) * 100) /
+                    categoryPointsBefore
+                )
+              ))).padStart(2, '0')}
               <span className="mainSymbol">
                 {" "}
                 <a style={{ fontSize: "7vh" }}>%</a>
@@ -1078,7 +1097,7 @@ function App() {
             </span>
           </div>
           <div className="thirdSectionRight">
-            <span className="subText">Energia Elétrica</span>
+            <span className="subText">ENERGIA ELÉTRICA</span>
           </div>
           <FaBolt
             className="iconRight"
@@ -1112,7 +1131,17 @@ function App() {
                 <FaEquals style={{ fontSize: "6vh" }} color={CONST.pureWhite} />
               )}{" "}
 
-              {isNaN(Math.round((ringPointsPerCategory(dataRing, area)*100)/totalRingPoints(dataRing))) ? "00" : String(Math.round((ringPointsPerCategory(dataRing, area)*100)/totalRingPoints(dataRing))).padStart(2, '0')}
+              {isNaN(Math.abs(
+                Math.round(
+                  ((categoryPoints - categoryPointsBefore) * 100) /
+                    categoryPointsBefore
+                )
+              )) ? "00" : String(Math.round(Math.abs(
+                Math.round(
+                  ((categoryPoints - categoryPointsBefore) * 100) /
+                    categoryPointsBefore
+                )
+              ))).padStart(2, '0')}
               <span className="mainSymbol">
                 {" "}
                 <a style={{ fontSize: "7vh" }}>%</a>
@@ -1120,7 +1149,7 @@ function App() {
             </span>
           </div>
           <div className="thirdSectionRight">
-            <span className="subText">Mobilidade</span>
+            <span className="subText">MOBILIDADE</span>
           </div>
           <FaWalking
             className="iconRight"
@@ -1151,7 +1180,17 @@ function App() {
               ) : (
                 <FaEquals style={{ fontSize: "6vh" }} color={CONST.pureWhite} />
               )}
-              {isNaN(Math.round((ringPointsPerCategory(dataRing, area)*100)/totalRingPoints(dataRing))) ? "00" : String(Math.round((ringPointsPerCategory(dataRing, area)*100)/totalRingPoints(dataRing))).padStart(2, '0')}
+              {isNaN(Math.round(Math.abs(
+                Math.round(
+                  ((categoryPoints - categoryPointsBefore) * 100) /
+                    categoryPointsBefore
+                )
+              ))) ? "00" : String(Math.round(Math.abs(
+                Math.round(
+                  ((categoryPoints - categoryPointsBefore) * 100) /
+                    categoryPointsBefore
+                )
+              ))).padStart(2, '0')}
               <span className="mainSymbol">
                 {" "}
                 <a style={{ fontSize: "7vh" }}>%</a>
@@ -1159,7 +1198,7 @@ function App() {
             </span>
           </div>
           <div className="thirdSectionRight">
-            <span className="subText">Reciclagem</span>
+            <span className="subText">RECICLAGEM</span>
           </div>
           <FaRecycle
             className="iconRight"
@@ -1199,7 +1238,7 @@ function App() {
             </span>
           </div>
           <div className="thirdSectionRight">
-            <span className="subText">Recursos Hídricos</span>
+            <span className="subText">RECURSOS HÍDRICOS</span>
           </div>
           <FaFaucet
             className="iconRight"
