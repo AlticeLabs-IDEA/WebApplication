@@ -26,6 +26,15 @@ import "./assets/fonts/K2D-Medium.ttf";
 import db from "./firebase";
 import { collection, getDocs} from "firebase/firestore";
 
+
+function sortValues(map) {
+  const result = {};
+  Object.keys(map).forEach((category) => {
+    const sortedEntries = Object.entries(map[category]).sort((a, b) => b[1] - a[1]);
+    result[category] = Object.fromEntries(sortedEntries);
+  });
+  return result;
+}
 function adjustMonths(dateArray) {
   let result = [];
   for (let c = 0; c < dateArray.length; c++) {
@@ -466,7 +475,12 @@ function App() {
               (updatedFirstWeekPoints.water[day] || 0) + points_water;
             updatedScorePerCategories.water[dep.name] =
               (updatedScorePerCategories.water[dep.name] || 0) + points_water;
+              console.log(updatedScorePerCategories)
           }
+
+          
+          updatedScorePerCategories = sortValues(updatedScorePerCategories);
+          console.log(updatedScorePerCategories)
           
           setScorePerCategories(updatedScorePerCategories);
           for (let day of sevenDaysBeforeTemp) {
