@@ -192,7 +192,7 @@ function App() {
         lineWidth: 4,
       },
       1: {
-        labelInLegend: "Esta semana",
+        labelInLegend: "Semana Anterior",
         color: rankingColors[area][3],
         lineWidth: 4,
       },
@@ -623,7 +623,7 @@ function App() {
     let keys = Object.keys(dataSensor);
 
     setDataSensorChart([
-      ["---", "Semana passada", "Esta Semana"],
+      ["---", "Semana Anterior", "Semana Atual"],
       [
         keys[0],
         (dataSensor[keys[0]]?.["Enters"] || 0) +
@@ -678,7 +678,7 @@ function App() {
 
   function LineChartUdate() {
     setDataLine([
-      ["---", "Semana passada", "Esta Semana"],
+      ["---", "Semana Anterior", "Semana Atual"],
       [
         sevenDaysTemp[0] + "\nvs\n" + sevenDaysBeforeTemp[0],
         firstWeekPoints[area][sevenDaysTemp[0]],
@@ -979,7 +979,7 @@ function App() {
                   {category}
                 </span>
                 <br />
-                <span>durante a semana atual e a semana anterior </span>
+               {/* <span>durante a semana atual e a semana anterior </span> */}
               </span>
               <Chart
                 chartType="LineChart"
