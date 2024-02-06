@@ -603,9 +603,6 @@ function App() {
 
 
 
-
-  
-
   useEffect(() => {}, [
     firstWeekPoints,
     secondWeekPoints,
@@ -623,7 +620,7 @@ function App() {
     let keys = Object.keys(dataSensor);
 
     setDataSensorChart([
-      ["---", "Semana Anterior", "Semana Atual"],
+      ["---", "Semana Atual", "Semana Anterior"],
       [
         keys[0],
         (dataSensor[keys[0]]?.["Enters"] || 0) +
@@ -678,7 +675,7 @@ function App() {
 
   function LineChartUdate() {
     setDataLine([
-      ["---", "Semana Anterior", "Semana Atual"],
+      ["---", "Semana Atual", "Semana Anterior"],
       [
         sevenDaysTemp[0] + "\nvs\n" + sevenDaysBeforeTemp[0],
         firstWeekPoints[area][sevenDaysTemp[0]],
